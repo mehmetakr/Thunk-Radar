@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { options } from "../../constant";
-
+import axios from "axios";
 export const getflights = createAsyncThunk(
   "flight/getflights",
 
@@ -15,6 +15,7 @@ export const getflights = createAsyncThunk(
       lng: i[3],
     }));
 
+    console.log(veri)
     // formatlanan veriyi  paylaod olarak belirle (slice'a aktar)..
 
     return veri;

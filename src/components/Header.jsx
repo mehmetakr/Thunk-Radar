@@ -3,23 +3,28 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const state = useSelector((store) => store);
-console.log(state)
-  console.log(state.flight +"dsgfdhgj");
+
+  console.log(state)
   return (
     <header>
       <div>
-        <img src="\src\components\plane-l.png" />
-        <h3>Uçuş Radari</h3>
-      </div>
-
+<img src="\src\components\plane-l.png" />
+<h3>Uçuş Radari</h3>
+</div>
       <p>
         {state.isloading
-          ? "Uçuslar hesalanyor"
+          ? "Uçuşlar hesaplanıyor"
           : state.iserror
-          ? "Üzgünüz Bir hata oluştu"
-          : state.flight.length + "Uçuş Bulundu"}
+          ? "Üzgünüz, bir hata oluştu"
+          : state.flights.flight.length + " Uçuş Bulundu"}
       </p>
     </header>
   );
 };
+
 export default Header;
+
+
+
+/* 
+ */

@@ -1,21 +1,31 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Listview from "./pages/Listview";
 import Mapview from "./pages/Mapview";
 import { useDispatch } from "react-redux";
 import { getflights } from "./redux/actions/flightactions";
+import Modal from "./components/Modal"; // Boşluk düzeltilmiş
 
 function App() {
   const [ismapview, setismapview] = useState(true);
+  const [ucak, setucak] = useState(null); // uçak ismini düzeltildi
+  const [open, setisopen] = useState(false); // Başlangıç değeri false olarak belirtildi
+
   const dispatch = useDispatch();
+
+  const openmodal = (id) => {
+    setucak(id);
+    setisopen(true);
+  };
+
+  const closemodal = () => {
+    setisopen(false);
+    setucak(null);
+  };
 
   useEffect(() => {
     dispatch(getflights());
-  }, []);
-
-  // Promise yapısı kodda async await veya try catch bloğu kullanmazsak gelebilicek durumlardan birisidir.
-
-  /* async await apiden veri gelene kadar bekletme  işlemıni gerçekleştirir. */
+  }, [dispatch]); // useEffect içinde dispatch bağımlılığı eklendi
 
   return (
     <>
@@ -36,9 +46,9 @@ function App() {
         </button>
       </div>
 
-      {/* hangi bileşenin ekrana geleceğini belirleme */}
+      {ismapview ? <Mapview openmodal={openmodal} /> : <Listview openmodal={openmodal} />}
 
-      {ismapview ? <Mapview /> : <Listview />}
+      {open && <Modal ucak={ucak} closemodal={closemodal} />}
     </>
   );
 }
